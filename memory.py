@@ -40,7 +40,7 @@ ALLSHAPES = (DONUT, SQUARE, DIAMOND, LINES, OVAL)
 # initializing pygame window
 pg.init()
 CLOCK = pg.time.Clock()
-SCREEN = pg.display.set_mode(WINDOWWIDTH, WINDOWHEIGHT)
+SCREEN = pg.display.set_mode((WINDOWWIDTH, WINDOWHEIGHT))
 
 x = 0 # to store x coordinate of mouse 
 y = 0 # to store y coordinate of mouse
