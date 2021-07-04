@@ -42,6 +42,37 @@ pg.init()
 CLOCK = pg.time.Clock()
 SCREEN = pg.display.set_mode((WINDOWWIDTH, WINDOWHEIGHT))
 
-x = 0 # to store x coordinate of mouse 
-y = 0 # to store y coordinate of mouse
+xm = 0 # to store x coordinate of mouse 
+ym = 0 # to store y coordinate of mouse
 pg.display.set_caption("Memory Game")
+
+
+def generateRevealedBoxesData(val): # make board of false to detect the revealed easly
+    revealedBoxes = []
+    for i in range(BOARDWIDTH):
+        revealedBoxes.append([val] * BOARDHEIGHT)
+    return revealedBoxes
+
+def getRandomizedBoard():
+    # Get all shapes an colors
+    icons = []
+    for color in ALLCOLORS:
+        for shape in ALLSHAPES:
+            icons.append( (shape, color) )
+    random.shuffle(icons) # randomize the order
+    numIconsUsed = int(BOARDWIDTH * BOARDHEIGHT / 2) # calculate how many icons are needed
+    icons = icons[:numIconsUsed] * 2 # make two of each
+    random.shuffle(icons)
+
+    board = []
+    for x in range(BOARDWIDTH):
+        column =[]
+        for y in range(BOARDHEIGHT):
+            column.append(icons[0]) # add icon from list
+            del icons[0] # del used icon
+        board.append(column)
+    return board
+
+mainBoard = getRandomizedBoard()
+revealedBoxes = generateRevealedBoxesData(False)
+
